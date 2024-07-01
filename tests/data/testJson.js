@@ -211,6 +211,117 @@ const testCases = [
             error: 0,
         },
     },
+
+    {
+        name: 'Go : hello world',
+        reqObject: {
+            language: 'go',
+            script: `package main
+                    import "fmt"
+                    func main() {
+                        fmt.Println("hello world")
+                    }`,
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'Go : print stdin',
+        reqObject: {
+            language: 'go',
+            script: `package main
+                    import "fmt"
+                    import "bufio"
+                    import "os"
+                    func main() {
+                        scanner := bufio.NewScanner(os.Stdin)
+                        for scanner.Scan() {
+                            fmt.Println(scanner.Text())
+                        }
+                    }`,
+            stdin: '1 2 3',
+        },
+        expectedResponse: {
+            val: '1\n2\n3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+
+    {
+        name: 'JavaScript : hello world',
+        reqObject: {
+            language: 'javascript',
+            script: 'console.log("hello world")',
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'JavaScript : print stdin',
+        reqObject: {
+            language: 'javascript',
+            script: `process.stdin.setEncoding('utf8');
+                    process.stdin.on('data', (input) => {
+                    console.log(input);
+                    });`,
+            stdin: '1 2 3',
+        },
+        expectedResponse: {
+            val: '1 2 3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'C# : hello world',
+        reqObject: {
+            language: 'csharp',
+            script: `using System;
+                    class HelloWorld 
+                    {
+                        static void Main(string[] args) 
+                        {
+                            Console.WriteLine("hello world");
+                        }
+                    }`,
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'C# : print stdin',
+        reqObject: {
+            language: 'csharp',
+            script: `using System;
+                    class HelloWorld 
+                    {
+                        static void Main(string[] args) 
+                        {
+                            string line;
+                            while ((line = Console.ReadLine()) != null) 
+                            {
+                                Console.WriteLine(line);
+                            }
+                        }
+                    }`,
+            stdin: '1 2 3',
+        },
+        expectedResponse: {
+            val: '1\n2\n3\n',
+            status: 200,
+            error: 0,
+        },
+    },
     {
         name: 'TLE test',
         reqObject: {
